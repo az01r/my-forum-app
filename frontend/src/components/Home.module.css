@@ -1,0 +1,64 @@
+/* List container - uses Flexbox to arrange topics in a grid-like structure */
+.topicsList {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto; /* Center the content */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 20px; /* Space between the topic items */
+  justify-content: center; /* Center the topic items */
+}
+
+/* Individual Topic Item (Card) */
+.topicItem {
+  background: #000000;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px #000000; /* Subtle shadow for a card effect */
+  overflow: hidden; /* Ensures image corners respect border-radius */
+  width: 100%; /* Default to full width on small screens */
+  max-width: 300px; /* Max width for a single card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.topicItem:hover {
+  transform: translateY(-5px); /* Lift the card on hover */
+  box-shadow: 0 8px 16px var(--color-accent-glow); /* Enhanced shadow on hover */
+}
+
+/* Image styling */
+.topicImage {
+  width: 100%;
+  height: 200px; /* Fixed height for visual consistency */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  display: block;
+}
+
+/* Link/Title styling */
+.topicLink {
+  display: block; /* Make the whole area clickable */
+  text-decoration: none;
+  color: white; /* Primary link color */
+  font-size: 1.25rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  height: 100%;
+}
+
+.topicLink:hover {
+  color: var(--color-accent) ;
+}
+
+/* Media Query for larger screens (e.g., tablet and desktop) */
+@media (min-width: 768px) {
+  .topicItem {
+    width: calc(33.33% - 20px); /* 3 items per row, accounting for gap */
+  }
+}
+
+/* Media Query for very large screens */
+@media (min-width: 1024px) {
+  .topicItem {
+    width: calc(25% - 15px); /* 4 items per row, slightly smaller gap */
+  }
+}

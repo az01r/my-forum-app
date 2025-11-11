@@ -1,0 +1,99 @@
+.navbar {
+  /* Use secondary-dark for navbar background */
+  background-color: var(--color-secondary-dark); 
+  /* Subtle separator using off-white with low opacity */
+  border-bottom: 1px solid rgba(240, 240, 240, 0.1); 
+  padding: var(--spacing-unit);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky; 
+  top: 0;
+  z-index: 1000;
+}
+
+.navbarLeft,
+.navbarRight {
+  display: flex;
+  align-items: center;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.list li {
+  margin-right: var(--spacing-unit);
+}
+
+.list li:last-child {
+  margin-right: 0;
+}
+
+.navbar a {
+  /* Default link color is the off-white text color */
+  color: var(--color-text-light);
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--border-radius);
+  /* Add transition for smooth glow effect */
+  transition: all 0.3s ease-in-out; 
+  font-weight: 600; 
+  display: block;
+}
+
+/* --- GLOW EFFECT on Hover/Focus --- */
+.navbar a:hover,
+.navbar a:focus {
+  color: var(--color-accent); /* Text changes to the Green accent color */
+  background-color: rgba(76, 175, 80, 0.05); /* Very subtle green background tint */
+  text-decoration: none; 
+  
+  /* The Glow: using the pre-defined green glow variable */
+  box-shadow: 0 0 10px var(--color-accent-glow); 
+}
+
+/* --- Active Link Style with Glow --- */
+.active {
+  /* Active link text is the darkest background color for high contrast */
+  color: var(--color-primary-dark); 
+  /* Active link background is the Green accent color */
+  background-color: var(--color-accent); 
+  pointer-events: none; 
+  
+  /* Apply a brighter, persistent glow to the currently active item */
+  box-shadow: 0 0 15px var(--color-accent-glow), 
+              0 0 5px var(--color-accent-glow) inset; 
+}
+
+.active:hover {
+  /* Maintain active colors and glow on hover */
+  color: var(--color-primary-dark) !important; 
+  background-color: var(--color-accent) !important; 
+  box-shadow: 0 0 15px var(--color-accent-glow),
+              0 0 5px var(--color-accent-glow) inset;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacing-unit);
+  }
+
+  .navbarLeft {
+    margin-bottom: var(--spacing-unit);
+  }
+
+  .list {
+    flex-direction: column;
+  }
+
+  .list li {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+}

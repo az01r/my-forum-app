@@ -1,0 +1,74 @@
+/* --- Variables --- */
+:root {
+  /* Dark/Background Colors */
+  --color-primary-dark: #121212;      /* Deepest dark background (Modern standard dark mode) */
+  --color-secondary-dark: #1e1e1e;    /* Slightly lighter background for cards/containers/navbar */
+  --color-card-dark: #2c2c2c;         /* Card/Element background for lift */
+
+  /* Light/Text Colors */
+  --color-text-light: #f0f0f0;        /* Off-white text for main content */
+  --color-text-muted: #888888;        /* Muted gray for secondary info/timestamps */
+
+  /* Accent Color (Green) */
+  --color-accent: #34c22f;            /* Vibrant Green for links, buttons, highlights */
+  --color-accent-hover: #45ad4a;      /* Darker Green for hover state */
+  --color-accent-glow: rgba(72, 201, 76, 0.7); /* Green with transparency for box-shadow glow */
+
+  /* Typography & Layout */
+  --font-family-primary: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --max-width: 1200px;
+  --spacing-unit: 1rem;
+  --border-radius: 4px;
+}
+
+/* --- Base Reset and Setup (Using Variables) --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-primary-dark);
+  color: var(--color-text-light);
+  font-family: var(--font-family-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Typography (Using Variables) --- */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text-light);
+  margin-bottom: calc(var(--spacing-unit) / 2);
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: var(--spacing-unit);
+}
+
+/* --- Links (Global - Using Variables) --- */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+/* --- Utilities/Layout (Global) --- */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-unit);
+}
