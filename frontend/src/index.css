@@ -4,7 +4,7 @@
   --color-primary-dark: #121212;      /* Deepest dark background (Modern standard dark mode) */
   --color-secondary-dark: #1e1e1e;    /* Slightly lighter background for cards/containers/navbar */
   --color-card-dark: #2c2c2c;         /* Card/Element background for lift */
-
+  --color-dark-green: rgba(76, 175, 80, 0.05);
   /* Light/Text Colors */
   --color-text-light: #f0f0f0;        /* Off-white text for main content */
   --color-text-muted: #888888;        /* Muted gray for secondary info/timestamps */

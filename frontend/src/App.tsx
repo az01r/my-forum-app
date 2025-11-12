@@ -1,14 +1,23 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 import RootLayout from "./components/RootLayout";
 import Home from "./components/Home";
 import { loader as topicsLoader } from "./components/Home";
 import NewTopic, { createTopicAction } from "./components/NewTopic";
+import { Auth } from "./components/Auth";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     children: [
+      {
+        index: true,
+        loader: () => redirect("/topics"),
+      },
       {
         path: "topics",
         element: <Home />,
@@ -19,11 +28,11 @@ const router = createBrowserRouter([
         element: <NewTopic />,
         action: createTopicAction,
       },
-      // {
-      //   path: "auth",
-      //   element: <Auth />,
-      //   action: createTopicAction,
-      // },
+      {
+        path: "auth",
+        element: <Auth />,
+        // action: createTopicAction,
+      },
     ],
   },
 ]);

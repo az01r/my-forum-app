@@ -48,33 +48,25 @@
 /* --- GLOW EFFECT on Hover/Focus --- */
 .navbar a:hover,
 .navbar a:focus {
-  color: var(--color-accent); /* Text changes to the Green accent color */
-  background-color: rgba(76, 175, 80, 0.05); /* Very subtle green background tint */
-  text-decoration: none; 
-  
-  /* The Glow: using the pre-defined green glow variable */
+  color: var(--color-accent);
+  background-color: var(--color-dark-green);
+  text-decoration: none;
   box-shadow: 0 0 10px var(--color-accent-glow); 
 }
 
 /* --- Active Link Style with Glow --- */
-.active {
+.active,
+.active:hover,
+.active:focus {
   /* Active link text is the darkest background color for high contrast */
-  color: var(--color-primary-dark); 
+  color: var(--color-primary-dark) !important; 
   /* Active link background is the Green accent color */
-  background-color: var(--color-accent); 
+  background-color: var(--color-accent) !important; 
   pointer-events: none; 
   
   /* Apply a brighter, persistent glow to the currently active item */
   box-shadow: 0 0 15px var(--color-accent-glow), 
-              0 0 5px var(--color-accent-glow) inset; 
-}
-
-.active:hover {
-  /* Maintain active colors and glow on hover */
-  color: var(--color-primary-dark) !important; 
-  background-color: var(--color-accent) !important; 
-  box-shadow: 0 0 15px var(--color-accent-glow),
-              0 0 5px var(--color-accent-glow) inset;
+              0 0 5px var(--color-accent-glow) inset !important; 
 }
 
 @media (max-width: 768px) {

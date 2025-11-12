@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
         </ul>
       </div>
       <div className={classes.navbarRight}>
-        <NavLink to="/auth" className={isActive}>
+        <NavLink to="/auth?mode=login" className={isActive}>
           Login / Register
         </NavLink>
       </div>
