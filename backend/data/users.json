@@ -1,0 +1,14 @@
+[
+  {
+    "id": "2025-11-12T15:28:02.847Z",
+    "nickname": "nick2",
+    "email": "test2@test.com",
+    "password": "$2b$12$z2nCHwxlxX//NbhGBCR9SeUH3./6Xj8k0spBoJBYaQnqBjp0DRNqK"
+  },
+  {
+    "id": "2025-11-12T15:25:30.354Z",
+    "nickname": "nick",
+    "email": "test@test.com",
+    "password": "$2b$12$/refghrkxrcN6AXUkE7IZOdt3gXiSfIKYf.TnXBrHSaSUflDEqRza"
+  }
+]
