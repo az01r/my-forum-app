@@ -42,7 +42,7 @@ export async function createTopicAction({
 
   await createTopic({ title });
 
-  return redirect("/");
+  return redirect("/topics");
 }
 
 

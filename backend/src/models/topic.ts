@@ -30,6 +30,7 @@ class Topic {
       //   lastUpdated: new Date(),
       // };
       // topics.unshift(newTopic);
+
       this.id = new Date().toISOString();
       this.lastUpdated = new Date();
       topics.unshift(this);

@@ -10,15 +10,20 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        index: true,
+        path: "topics",
         element: <Home />,
         loader: topicsLoader,
       },
       {
-        path: "/new-topic",
+        path: "new-topic",
         element: <NewTopic />,
         action: createTopicAction,
       },
+      // {
+      //   path: "auth",
+      //   element: <Auth />,
+      //   action: createTopicAction,
+      // },
     ],
   },
 ]);

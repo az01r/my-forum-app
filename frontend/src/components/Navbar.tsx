@@ -9,7 +9,7 @@ const Navbar: React.FC = () => {
       <div className={classes.navbarLeft}>
         <ul className={classes.list}>
           <li>
-            <NavLink to="/" className={isActive}>
+            <NavLink to="/topics" className={isActive}>
             Home
             </NavLink>
           </li>
