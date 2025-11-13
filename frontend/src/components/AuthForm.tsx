@@ -4,22 +4,21 @@ import classes from "./AuthForm.module.css";
 export default function AuthForm() {
   const [searchParams, setSearchParams] = useSearchParams();
   const isLogin = searchParams.get("mode") === "login";
-  const data = useActionData(); // data retrieved from the response after form submit when status === 401 or 422
+  const data: { status: number, messages: string[] } | undefined = useActionData(); // data retrieved from the response after form submit when status === 401 or 422
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   return (
     <>
       <Form method="post" className={classes.form}>
-        <h1>{isLogin ? "Log in" : "Create a new user"}</h1>
-        {data && data.errors && (
+        <h1>{isLogin ? "Log in" : "Sign up"}</h1>
+        {data && data.messages && (
           <ul>
-            {Object.values(data.errors).map((err) => {
-              const error = err as string;
+            {Object.values(data.messages).map((msg) => {
+              const error = msg as string;
               return <li key={error}>{error}</li>;
             })}
           </ul>
         )}
-        {data && data.message && <p>{data.message}</p>}
         <p>
           <label htmlFor="email">Email</label>
           <input id="email" type="email" name="email" required />
@@ -36,7 +35,7 @@ export default function AuthForm() {
         </p>
         <div className={classes.actions}>
           <Link to={`?mode=${isLogin ? "signup" : "login"}`}>
-            {isLogin ? "Create new user" : "Login"}
+            {isLogin ? "Signup" : "Login"}
           </Link>
           <button disabled={isSubmitting}>
             {isSubmitting ? "Submitting" : isLogin ? "Login" : "Signup"}

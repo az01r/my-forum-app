@@ -32,7 +32,14 @@ export async function createTopicAction({ request }: ActionFunctionArgs) {
     });
   }
 
-  await createTopic({ title });
+  const response = await createTopic({ title });
+  
+  if (!response.ok) {
+    throw new Response(JSON.stringify({ errors: "Failed to save the topic." }));
+  }
+  // not used right now
+  //   const resData = await response.json();
+  //   return resData.topic as TopicType;
 
   return redirect("/topics");
 }

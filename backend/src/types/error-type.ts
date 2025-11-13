@@ -1,9 +1,9 @@
 export default class CustomError {
-    message: string;
-    status: number;
+  messages: string[];
+  status: number;
 
-    constructor(message: string, status: number) {
-        this.message = message;
-        this.status = status;
-    }
+  constructor(messages: string[] | string, status: number) {
+    this.messages = messages instanceof Array ? messages : [messages];
+    this.status = status;
+  }
 }
