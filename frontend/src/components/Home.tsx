@@ -8,7 +8,7 @@ export async function loader() {
   return topics; // The return value is accessible via useLoaderData
 }
 
-const Home: React.FC = () => {
+function Home() {
   // Use the data loaded by the loader function
   const topics = useLoaderData() as TopicType[];
   console.log(topics)
