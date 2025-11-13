@@ -4,12 +4,12 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import RootLayout from "./components/RootLayout";
-import Home from "./components/Home";
-import { loader as topicsLoader } from "./components/Home";
-import NewTopic, { createTopicAction } from "./components/NewTopic";
-import Auth, { action as authAction } from "./components/Auth";
+import HomePage from "./pages/HomePage";
+import { loader as topicsLoader } from "./pages/HomePage";
+import NewTopicPage, { createTopicAction } from "./pages/NewTopicPage";
+import AuthPage, { action as authAction } from "./pages/AuthPage";
 import ErrorPage from "./pages/ErrorPage";
-import { action as logoutAction } from "./pages/Logout";
+import { action as logoutAction } from "./pages/LogoutPage";
 import { tokenLoader, checkAuthLoader } from "./util/auth";
 
 const router = createBrowserRouter([
@@ -26,18 +26,18 @@ const router = createBrowserRouter([
       },
       {
         path: "topics",
-        element: <Home />,
+        element: <HomePage />,
         loader: topicsLoader,
       },
       {
         path: "new-topic",
-        element: <NewTopic />,
+        element: <NewTopicPage />,
         action: createTopicAction,
         loader: checkAuthLoader,
       },
       {
         path: "auth",
-        element: <Auth />,
+        element: <AuthPage />,
         action: authAction,
       },
       {

@@ -1,14 +1,8 @@
 import { Link, useLoaderData } from "react-router-dom";
-import classes from "./Home.module.css";
 import type { TopicType } from "../types/topic-types";
-import { fetchTopics } from "../http";
+import classes from './TopicsList.module.css';
 
-export async function loader() {
-  const topics = await fetchTopics();
-  return topics; // The return value is accessible via useLoaderData
-}
-
-function Home() {
+export default function TopicList() {
   // Use the data loaded by the loader function
   const topics = useLoaderData() as TopicType[];
   console.log(topics)
@@ -31,5 +25,3 @@ function Home() {
     </ul>
   );
 }
-
-export default Home;

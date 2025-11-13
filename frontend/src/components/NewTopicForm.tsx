@@ -1,52 +1,7 @@
-import { createTopic } from "../http.ts";
-import type { NewTopicProps } from "../types/topic-types.ts";
-import { hasMaxLength, hasMinLength, isEmpty } from "../util/validation.ts";
-import {
-  Form,
-  redirect,
-  useNavigate,
-  type ActionFunctionArgs,
-} from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
+import type { NewTopicProps } from "../types/topic-types";
 
-const TITLE_MIN_LENGTH = 1;
-const TITLE_MAX_LENGTH = 50;
-
-export async function createTopicAction({
-  request,
-  params,
-}: ActionFunctionArgs): Promise<Response> {
-  const formData = await request.formData();
-  const title = formData.get("title") as string;
-  const terms = formData.get("terms") ? true : false;
-
-  const errors = [];
-
-  if (
-    isEmpty(title) ||
-    !hasMinLength(title!, TITLE_MIN_LENGTH) ||
-    !hasMaxLength(title!, TITLE_MAX_LENGTH)
-  ) {
-    errors.push(
-      `Title length must be between ${TITLE_MIN_LENGTH} and ${TITLE_MAX_LENGTH} characters.`
-    );
-  }
-  if (!terms) {
-    errors.push("You must agree to the terms and conditions.");
-  }
-
-  if (errors.length > 0) {
-    throw new Response(JSON.stringify({ errors }), {
-      status: 403,
-    });
-  }
-
-  await createTopic({ title });
-
-  return redirect("/topics");
-}
-
-
-const NewTopic: React.FC<NewTopicProps> = (props) => {
+export default function NewTopicForm(props: NewTopicProps) {
   const navigate = useNavigate();
   function cancelHandler() {
     navigate("..");
@@ -106,5 +61,3 @@ const NewTopic: React.FC<NewTopicProps> = (props) => {
     </>
   );
 }
-
-export default NewTopic;
