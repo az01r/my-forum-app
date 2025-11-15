@@ -1,16 +1,14 @@
-import {
-  createBrowserRouter,
-  redirect,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./components/RootLayout";
 import HomePage from "./pages/HomePage";
-import { loader as topicsLoader } from "./pages/HomePage";
 import NewTopicPage, { createTopicAction } from "./pages/NewTopicPage";
 import AuthPage, { action as authAction } from "./pages/AuthPage";
 import ErrorPage from "./pages/ErrorPage";
 import { action as logoutAction } from "./pages/LogoutPage";
 import { tokenLoader, checkAuthLoader } from "./util/auth";
+import TopicPage, { loader as topicLoader } from "./pages/TopicPage";
+import TopicsPage, { loader as topicsLoader } from "./pages/TopicsPage";
+import { action as sendMessageAction } from "./components/SendMessageForm";
 
 const router = createBrowserRouter([
   {
@@ -22,18 +20,29 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => redirect("/topics"),
+        element: <HomePage />,
       },
       {
         path: "topics",
-        element: <HomePage />,
-        loader: topicsLoader,
-      },
-      {
-        path: "new-topic",
-        element: <NewTopicPage />,
-        action: createTopicAction,
-        loader: checkAuthLoader,
+        children: [
+          {
+            index: true,
+            element: <TopicsPage />,
+            loader: topicsLoader,
+          },
+          {
+            path: ":topicId",
+            element: <TopicPage />,
+            loader: topicLoader,
+            action: sendMessageAction,
+          },
+          {
+            path: "new",
+            element: <NewTopicPage />,
+            action: createTopicAction,
+            loader: checkAuthLoader,
+          },
+        ],
       },
       {
         path: "auth",

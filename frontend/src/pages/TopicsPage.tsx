@@ -1,11 +1,21 @@
 import { Link, useLoaderData } from "react-router-dom";
 import type { TopicType } from "../types/topic-types";
-import classes from './TopicsList.module.css';
+import classes from "./TopicsPage.module.css";
+import { fetchTopics } from "../http";
 
-export default function TopicList() {
+export async function loader() {
+  const response = await fetchTopics();
+  if (!response.ok) {
+    throw new Response(JSON.stringify({ errors: "Failed to fetch topics." }));
+  }
+
+  const resData = await response.json();
+  return resData.topics as TopicType[]; // The return value is accessible via useLoaderData
+}
+
+export default function TopicsPage() {
   // Use the data loaded by the loader function
   const topics = useLoaderData() as TopicType[];
-  console.log(topics)
   return (
     <ul className={classes.topicsList}>
       {topics.length === 0 && <p>No topics yet!</p>}

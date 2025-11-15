@@ -34,7 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   const resData = await response.json();
-  const token = resData.token;
+  const token = resData.jwt;
   setAuthToken(token);
 
   return redirect("/topics");

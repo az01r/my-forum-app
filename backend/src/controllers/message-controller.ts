@@ -8,8 +8,8 @@ export const loadTopicMessages = async (
 ) => {
   const topicId = req.params.topicId as string;
   try {
-    const topicsData = await Message.fetchByTopicId(topicId);
-    res.status(200).json({ topics: topicsData });
+    const messages = await Message.fetchByTopicId(topicId);
+    res.status(200).json({ messages });
   } catch (error: any) {
     next(error);
   }

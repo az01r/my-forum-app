@@ -1,17 +1,8 @@
 export interface TopicType {
-  id: string;
+  id?: string;
   title: string;
-  lastUpdated: Date;
+  lastUpdated?: Date;
 }
-
-export interface ParamActionNewTopic {
-  title: string;
-}
-// export interface NewTopicType {
-//     errors: string[] | null;
-//     title: string | null;
-//     terms: boolean;
-// }
 
 export interface NewTopicProps {
   event?: {

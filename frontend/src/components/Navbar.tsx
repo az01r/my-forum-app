@@ -15,12 +15,17 @@ function Navbar() {
       <div className={classes.navbarLeft}>
         <ul className={classes.list}>
           <li>
-            <NavLink to="/topics" className={isActive}>
+            <NavLink to="/" className={isActive} end>
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink to="/new-topic" className={isActive}>
+            <NavLink to="/topics" className={isActive} end>
+              Topics
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/topics/new" className={isActive}>
               Start a new discussion
             </NavLink>
           </li>

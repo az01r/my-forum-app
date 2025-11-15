@@ -50,7 +50,6 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
         }
         const token = jwtSign(user.nickname!);
         res.status(200).json({
-            message: 'Logged in.',
             jwt: token
         });
     } catch (error) {
