@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import jwt from 'jsonwebtoken';
+import jwt, { type JwtPayload } from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import User from "../models/user.ts";
@@ -16,9 +16,7 @@ const jwtSign = (nickname: string) => {
 }
 
 export const signup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const nickname = req.body.nickname;
-    const email = req.body.email;
-    const password = req.body.password;
+    const { nickname, email, password } = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 12);
@@ -58,4 +56,35 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     } catch (error) {
         next(error);
     }
+};
+
+declare global {
+  namespace Express {
+    interface Request {
+      userId?: string;
+    }
+  }
+}
+
+interface UserPayload extends JwtPayload {
+  userId: string;
+}
+
+export const isAuth = (req: Request, res: Response, next: NextFunction) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    const error = new CustomError("No token provided.", 401);
+    next(error);
+  }
+  try {
+    const decodedToken = jwt.verify(
+      token!,
+      process.env.JWT_SECRET!
+    ) as UserPayload;
+    req.userId = decodedToken.userId;
+  } catch (e) {
+    const error = new CustomError("Authentication failed.", 401);
+    next(error);
+  }
+  next();
 };

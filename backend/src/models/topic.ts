@@ -1,5 +1,9 @@
 import fs from "node:fs/promises";
 import CustomError from "../types/error-type.ts";
+import path from "node:path";
+import { tryReadOrCreateFile } from "../util/file.ts";
+
+const filePath = path.join(process.cwd(), "data", "topics.json"); // ./data/topics.json
 
 class Topic {
   id?: string;
@@ -12,8 +16,8 @@ class Topic {
 
   static async fetchTopics() {
     try {
-      const fileContent = await fs.readFile("./data/topics.json");
-      const topicsData = JSON.parse(fileContent.toString()) as Topic[];
+      const fileContent = await tryReadOrCreateFile({ filePath });
+      const topicsData = JSON.parse(fileContent) as Topic[];
       return topicsData;
     } catch (error) {
       console.log(error);
@@ -24,17 +28,10 @@ class Topic {
   async save() {
     try {
       const topics = await Topic.fetchTopics();
-      // const newTopic = {
-      //   id: new Date().toISOString(),
-      //   title: this.title,
-      //   lastUpdated: new Date(),
-      // };
-      // topics.unshift(newTopic);
-
       this.id = new Date().toISOString();
       this.lastUpdated = new Date();
       topics.unshift(this);
-      await fs.writeFile("./data/topics.json", JSON.stringify(topics, null, 2));
+      await fs.writeFile(filePath, JSON.stringify(topics, null, 2));
       return this;
     } catch (error) {
       console.log(error);
