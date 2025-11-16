@@ -1,7 +1,4 @@
-import {
-  useLoaderData,
-  type LoaderFunctionArgs,
-} from "react-router-dom";
+import { useLoaderData, type LoaderFunctionArgs } from "react-router-dom";
 import { fetchMessagesByTopicId } from "../http";
 import type { MessageType } from "../types/message-types";
 import SendMessageForm from "../components/SendMessageForm";
@@ -14,6 +11,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   }
 
   const resData = await response.json();
+  console.log(resData);
   return resData.messages as MessageType[]; // The return value is accessible via useLoaderData
 }
 
@@ -25,9 +23,10 @@ export default function TopicPage() {
     <>
       <ul>
         {messages.map((m) => (
-          <li key={m.id}>
-            {m.sentOn}
-            {m.text}
+          <li key={m._id}>
+            <p>
+              {m.createdAt} - {m.content}
+            </p>
           </li>
         ))}
       </ul>

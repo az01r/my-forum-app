@@ -1,43 +1,14 @@
-import fs from "node:fs/promises";
-import CustomError from "../types/error-type.ts";
-import path from "node:path";
-import { tryReadOrCreateFile } from "../util/file.ts";
+import { Schema, model } from "mongoose";
 
-const filePath = path.join(process.cwd(), "data", "topics.json"); // ./data/topics.json
-
-class Topic {
-  id?: string;
-  title: string;
-  lastUpdated?: Date;
-
-  constructor({ title }: { title: string }) {
-    this.title = title;
+const topicSchema = new Schema(
+  {
+    title: { type: String, required: true },
+  },
+  {
+    timestamps: true,
   }
+);
 
-  static async fetchTopics() {
-    try {
-      const fileContent = await tryReadOrCreateFile({ filePath });
-      const topicsData = JSON.parse(fileContent) as Topic[];
-      return topicsData;
-    } catch (error) {
-      console.log(error);
-      throw new CustomError("An error occured, couldn't fetch topics.", 500);
-    }
-  }
-
-  async save() {
-    try {
-      const topics = await Topic.fetchTopics();
-      this.id = new Date().toISOString();
-      this.lastUpdated = new Date();
-      topics.unshift(this);
-      await fs.writeFile(filePath, JSON.stringify(topics, null, 2));
-      return this;
-    } catch (error) {
-      console.log(error);
-      throw new CustomError("An error occured, couldn't save topic.", 500);
-    }
-  }
-}
+const Topic = model("Topic", topicSchema);
 
 export default Topic;

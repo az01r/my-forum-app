@@ -1,5 +1,5 @@
 export interface TopicType {
-  id?: string;
+  _id?: string;
   title: string;
   lastUpdated?: Date;
 }

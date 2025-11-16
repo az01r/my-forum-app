@@ -1,6 +1,6 @@
 export interface MessageType {
-  id: string;
+  _id: string;
   topicId: string;
-  text: string;
-  sentOn: string;
+  content: string;
+  createdAt: string;
 }

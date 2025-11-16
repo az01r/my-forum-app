@@ -8,8 +8,8 @@ export async function loader() {
   if (!response.ok) {
     throw new Response(JSON.stringify({ errors: "Failed to fetch topics." }));
   }
-
   const resData = await response.json();
+  console.log(resData);
   return resData.topics as TopicType[]; // The return value is accessible via useLoaderData
 }
 
@@ -21,8 +21,8 @@ export default function TopicsPage() {
       {topics.length === 0 && <p>No topics yet!</p>}
       {topics.length > 0 &&
         topics.map((topic) => (
-          <li key={topic.id} className={classes.topicItem}>
-            <Link to={`${topic.id}`} className={classes.topicLink}>
+          <li key={topic._id} className={classes.topicItem}>
+            <Link to={`${topic._id}`} className={classes.topicLink}>
               {/* <img
                 src={topic.img}
                 alt={topic.title}

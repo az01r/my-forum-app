@@ -8,14 +8,14 @@ export const loadTopicMessages = async (
 ) => {
   const topicId = req.params.topicId as string;
   try {
-    const messages = await Message.fetchByTopicId(topicId);
+    const messages = await Message.find({ topicId });
     res.status(200).json({ messages });
-  } catch (error: any) {
+  } catch (error) {
     next(error);
   }
 };
 
-export const saveTopicMessages = async (
+export const createTopicMessage = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -23,8 +23,8 @@ export const saveTopicMessages = async (
   const userId = req.userId!;
   const topicId = req.params.topicId as string;
   const text = req.body.text as string;
-  const message = new Message({ userId, topicId, text });
   try {
+    const message = new Message({ userId, topicId, content: text });
     const newMessage = await message.save();
     res.status(201).json({ newMessage });
   } catch (error) {

@@ -7,9 +7,9 @@ export const loadTopics = async (
   next: NextFunction
 ) => {
   try {
-    const topicsData = await Topic.fetchTopics();
+    const topicsData = await Topic.find();
     res.status(200).json({ topics: topicsData });
-  } catch (error: any) {
+  } catch (error) {
     next(error);
   }
 };
