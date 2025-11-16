@@ -33,7 +33,8 @@ app.use(notFoundRouter);
 app.use(errorRouter);
 
 await mongoose.connect(MONGODB_URI);
+console.log('\x1b[32m\Connected to MongoDB\x1b[0m');
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server running at http://localhost:${process.env.PORT}`);
+  console.log(`\x1b[32m\Server running at \x1b[34m\http://localhost:${process.env.PORT}\x1b[0m`);
 });

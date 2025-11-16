@@ -5,7 +5,7 @@ export default (error: CustomError | any, req: Request, res: Response, next: Nex
     const statusCode = error.status || 500;
     const messages = error.messages || error.message || 'An error occured';
 
-    console.log('\x1b[31m' + `Error ${statusCode}: ${messages}` + '\x1b[0m');
+    console.log(`\x1b[31m\Error ${statusCode}: ${messages}\x1b[0m`);
     
     res.status(statusCode).json({ messages });
 };

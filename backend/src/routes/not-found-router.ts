@@ -5,6 +5,6 @@ export default (req: Request, res: Response, next: NextFunction) => {
   if (req.method === "OPTIONS") {
     return next();
   }
-  const error = new CustomError("404 - Not Found", 500);
+  const error = new CustomError("Page Not Found", 404);
   next(error);
 }
