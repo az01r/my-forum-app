@@ -11,7 +11,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
   }
 
   const resData = await response.json();
-  console.log(resData);
   return resData.messages as MessageType[]; // The return value is accessible via useLoaderData
 }
 
