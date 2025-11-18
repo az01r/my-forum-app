@@ -1,22 +1,30 @@
-import { Form, Link, useActionData, useNavigation, useSearchParams } from "react-router-dom";
+import {
+  Form,
+  Link,
+  useActionData,
+  useNavigation,
+  useSearchParams,
+} from "react-router-dom";
 import classes from "./AuthForm.module.css";
 
 export default function AuthForm() {
   const [searchParams, setSearchParams] = useSearchParams();
   const isLogin = searchParams.get("mode") === "login";
-  const data: { status: number, messages: string[] } | undefined = useActionData(); // data retrieved from the response after form submit when status === 401 or 422
+
+  const actionData: { message: string[] } | undefined = useActionData(); // retrieved from the response after form submit when status === 401 or 422
+
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+
   return (
     <>
       <Form method="post" className={classes.form}>
         <h1>{isLogin ? "Log in" : "Sign up"}</h1>
-        {data && data.messages && (
+        {actionData && actionData.message && (
           <ul>
-            {Object.values(data.messages).map((msg) => {
-              const error = msg as string;
-              return <li key={error}>{error}</li>;
-            })}
+            {actionData.message.map((err) => (
+              <li key={err}>{err}</li>
+            ))}
           </ul>
         )}
         <p>

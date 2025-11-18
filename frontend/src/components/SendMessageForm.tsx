@@ -1,24 +1,52 @@
-import { Form, type ActionFunctionArgs } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { Form, useActionData, useNavigation, type ActionFunctionArgs } from "react-router-dom";
 import { sendTopicMessage } from "../http";
+import { validateSendMessageAction } from "../util/validators";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   //   const searchParams = new URL(request.url).searchParams;
   //   const topicId = searchParams.get("topicId");
   const topicId = params.topicId;
   const data = await request.formData();
-  const text = data.get("message") as string | null;
-  if (!topicId) {
-    return new Response("Invalid topic.", { status: 422 });
+  const text = data.get("message")?.toString();
+  
+  const errors = validateSendMessageAction({ topicId, text });
+  
+  if (errors.length > 0) {
+    return { message: [...errors] }; // return value is automatically wrapped in a Response by react-router-dom
   }
-  if (!text) {
-    return new Response("Message is empty.", { status: 422 });
+
+  const response = await sendTopicMessage(topicId!, text!);
+  
+  if (response.status === 422) {
+    // When backend validation fails, it returns a response with an error message
+    // This message is managed in the same way of a frontend validation exception
+    return response;
   }
-  await sendTopicMessage(topicId, text);
+
+  if (!response.ok) {
+    throw response;
+  }
+
 }
 
 export default function SendMessageForm() {
+  
+  const navigation = useNavigation();
+  const actionData = useActionData();
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // re-execute the component when navigation.state or actionData changes
+  useEffect(() => {
+    // if submission finished && no errors occurred
+    if (navigation.state === "idle" && !actionData) {
+      formRef.current?.reset();
+    }
+  }, [navigation.state, actionData]);
+
+
   return (
-    <Form method="post">
+    <Form method="post" ref={formRef}>
         <div className="control">
           <input
             id="message"

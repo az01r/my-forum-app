@@ -26,3 +26,11 @@ export const createTopicValidation = [
         .notEmpty()
         .withMessage('Please enter a valid title.'),
 ];
+
+export const sendMessageValidation = [
+    body('text')
+        .trim()
+        .notEmpty()
+        .isLength({ min: 8 })
+        .withMessage('Please enter a valid message.'),
+];

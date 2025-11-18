@@ -1,45 +1,31 @@
 import NewTopicForm from "../components/NewTopicForm.tsx";
 import { createTopic } from "../http.ts";
-import { hasMaxLength, hasMinLength, isEmpty } from "../util/validation.ts";
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
-
-const TITLE_MIN_LENGTH = 1;
-const TITLE_MAX_LENGTH = 50;
+import { validateCreateTopicAction } from "../util/validators.ts";
 
 export async function createTopicAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const title = formData.get("title") as string;
+  const title = formData.get("title")!.toString().trim();
   const terms = formData.get("terms") ? true : false;
 
-  const errors = [];
-
-  if (
-    isEmpty(title) ||
-    !hasMinLength(title!, TITLE_MIN_LENGTH) ||
-    !hasMaxLength(title!, TITLE_MAX_LENGTH)
-  ) {
-    errors.push(
-      `Title length must be between ${TITLE_MIN_LENGTH} and ${TITLE_MAX_LENGTH} characters.`
-    );
-  }
-  if (!terms) {
-    errors.push("You must agree to the terms and conditions.");
-  }
+  const errors = validateCreateTopicAction({ title, terms });
 
   if (errors.length > 0) {
-    throw new Response(JSON.stringify({ errors }), {
-      status: 403,
-    });
+    return { message: [...errors] }; // return value is automatically wrapped in a Response by react-router-dom
   }
 
   const response = await createTopic({ title });
-  
-  if (!response.ok) {
-    throw new Response(JSON.stringify({ errors: "Failed to save the topic." }));
+
+  if (response.status === 422) {
+    // When backend validation fails, it returns a response with an error message
+    // This message is managed in the same way of a frontend validation exception
+    return response;
   }
-  // not used right now
-  //   const resData = await response.json();
-  //   return resData.topic as TopicType;
+
+  if (!response.ok) {
+    // For every other type of server side errors, I want to redirect to the ErrorPage
+    throw response;
+  }
 
   return redirect("/topics");
 }

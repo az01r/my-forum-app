@@ -7,7 +7,8 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const topicId = params.topicId!;
   const response = await fetchMessagesByTopicId(topicId);
   if (!response.ok) {
-    throw new Response(JSON.stringify({ errors: "Failed to fetch messages." }));
+    // throw new Response(JSON.stringify({ errors: "Failed to fetch messages." }));
+    throw response;
   }
 
   const resData = await response.json();

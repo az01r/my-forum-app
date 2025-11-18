@@ -9,7 +9,7 @@ export async function loader() {
     throw new Response(JSON.stringify({ errors: "Failed to fetch topics." }));
   }
   const resData = await response.json();
-  console.log(resData);
+  
   return resData.topics as TopicType[]; // The return value is accessible via useLoaderData
 }
 
