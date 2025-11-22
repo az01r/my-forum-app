@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { loadTopics } from '../controllers/topic-controller.ts';
-import { loadTopicMessages, createTopicMessage } from '../controllers/message-controller.ts';
-import { isAuth } from '../controllers/auth-controller.ts';
-import { validateRequest } from '../controllers/validation-controller.ts';
-import { sendMessageValidation } from '../util/validators.ts';
+import { loadTopics } from '../controllers/topic-controller.js';
+import { loadTopicMessages, createTopicMessage } from '../controllers/message-controller.js';
+import { isAuth } from '../controllers/auth-controller.js';
+import { validateRequest } from '../controllers/validation-controller.js';
+import { sendMessageValidation } from '../util/validators.js';
 
 const router = Router();
 

@@ -1,6 +1,7 @@
 export interface MessageType {
   _id: string;
-  topicId: string;
+  topic: string;
+  user: { _id: string; nickname: string };
   content: string;
   createdAt: string;
 }

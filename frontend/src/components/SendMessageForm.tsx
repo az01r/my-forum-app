@@ -2,10 +2,14 @@ import { useEffect, useRef } from "react";
 import { Form, useActionData, useNavigation, type ActionFunctionArgs } from "react-router-dom";
 import { sendTopicMessage } from "../http";
 import { validateSendMessageAction } from "../util/validators";
+import { checkAuthLoader } from "../util/auth";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   //   const searchParams = new URL(request.url).searchParams;
   //   const topicId = searchParams.get("topicId");
+  const checkAuthResponse = checkAuthLoader();
+  if (checkAuthResponse) return checkAuthResponse;
+
   const topicId = params.topicId;
   const data = await request.formData();
   const text = data.get("message")?.toString();

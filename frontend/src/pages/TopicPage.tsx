@@ -25,7 +25,7 @@ export default function TopicPage() {
         {messages.map((m) => (
           <li key={m._id}>
             <p>
-              {m.createdAt} - {m.content}
+              {m.user.nickname} - {m.createdAt} - {m.content}
             </p>
           </li>
         ))}
