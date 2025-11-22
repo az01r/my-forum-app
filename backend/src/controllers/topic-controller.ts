@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import Topic from "../models/topic.ts";
+import Topic from "../models/topic.js";
 
 export const loadTopics = async (
   req: Request,

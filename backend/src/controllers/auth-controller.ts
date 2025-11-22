@@ -2,8 +2,8 @@ import type { Request, Response, NextFunction } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-import User from "../models/user.ts";
-import CustomError from "../types/error-type.ts";
+import User from "../models/user.js";
+import CustomError from "../types/error-type.js";
 
 const jwtSign = (userId: string) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET as string, {

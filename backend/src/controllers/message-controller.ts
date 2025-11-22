@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import Message from "../models/message.ts";
+import Message from "../models/message.js";
 
 export const loadTopicMessages = async (
   req: Request,

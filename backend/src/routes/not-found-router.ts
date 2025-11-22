@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import CustomError from '../types/error-type.ts';
+import CustomError from "../types/error-type.js";
 
 export default (req: Request, res: Response, next: NextFunction) => {
   if (req.method === "OPTIONS") {
@@ -7,4 +7,4 @@ export default (req: Request, res: Response, next: NextFunction) => {
   }
   const error = new CustomError("Page Not Found", 404);
   next(error);
-}
+};
