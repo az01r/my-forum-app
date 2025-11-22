@@ -3,6 +3,7 @@ import { Form, useActionData, useNavigation, type ActionFunctionArgs } from "rea
 import { sendTopicMessage } from "../http";
 import { validateSendMessageAction } from "../util/validators";
 import { checkAuthLoader } from "../util/auth";
+import classes from "./SendMessageForm.module.css";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   //   const searchParams = new URL(request.url).searchParams;
@@ -50,8 +51,8 @@ export default function SendMessageForm() {
 
 
   return (
-    <Form method="post" ref={formRef}>
-        <div className="control">
+    <Form method="post" ref={formRef} className={classes.form}>
+        <div className={classes.control}>
           <input
             id="message"
             type="text"
@@ -59,7 +60,11 @@ export default function SendMessageForm() {
             placeholder="Send a message..."
             required
           />
-          <button>Send</button>
+          <button aria-label="Send message">
+            <svg viewBox="0 0 24 24">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+            </svg>
+          </button>
         </div>
     </Form>
   );

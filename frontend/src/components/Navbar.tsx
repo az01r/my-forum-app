@@ -1,48 +1,47 @@
 import { Form, NavLink, useRouteLoaderData } from "react-router";
-
 import classes from "./Navbar.module.css";
 
 function Navbar() {
   // the token is retrieved from the loader data and not with the util/auth function to re-evaluate
   // its state and eventually update the page
-  const token = useRouteLoaderData("root");
+  const token = useRouteLoaderData("root") as string | null;
 
-  const isActive = ({ isActive }: { isActive: boolean }) =>
-    isActive ? classes.active : undefined;
+  const linkClassName = ({ isActive }: { isActive: boolean }) =>
+    isActive ? `${classes.link} ${classes.active}` : classes.link;
 
   return (
-    <nav className={classes.navbar}>
-      <div className={classes.navbarLeft}>
+    <header className={classes.header}>
+      <nav className={classes.nav}>
         <ul className={classes.list}>
           <li>
-            <NavLink to="/" className={isActive} end>
+            <NavLink to="/" className={linkClassName} end>
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink to="/topics" className={isActive} end>
+            <NavLink to="/topics" className={linkClassName} end>
               Topics
             </NavLink>
           </li>
           <li>
-            <NavLink to="/topics/new" className={isActive}>
+            <NavLink to="/topics/new" className={linkClassName}>
               Start a new discussion
             </NavLink>
           </li>
         </ul>
-      </div>
-      <div className={classes.navbarRight}>
-        {token ? (
-          <Form action="/logout" method="post">
-            <button>Logout</button>
-          </Form>
-        ) : (
-          <NavLink to="/auth?mode=login" className={isActive}>
-            Login / Register
-          </NavLink>
-        )}
-      </div>
-    </nav>
+        <div className={classes.navbarRight}>
+          {token ? (
+            <Form action="/logout" method="post">
+              <button>Logout</button>
+            </Form>
+          ) : (
+            <NavLink to="/auth?mode=login" className={linkClassName}>
+              Login / Register
+            </NavLink>
+          )}
+        </div>
+      </nav>
+    </header>
   );
 }
 

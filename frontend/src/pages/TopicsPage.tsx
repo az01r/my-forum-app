@@ -17,18 +17,18 @@ export default function TopicsPage() {
   // Use the data loaded by the loader function
   const topics = useLoaderData() as TopicType[];
   return (
-    <ul className={classes.topicsList}>
+    <ul className={classes.list}>
       {topics.length === 0 && <p>No topics yet!</p>}
       {topics.length > 0 &&
         topics.map((topic) => (
-          <li key={topic._id} className={classes.topicItem}>
-            <Link to={`${topic._id}`} className={classes.topicLink}>
+          <li key={topic._id} className={classes.card}>
+            <Link to={`${topic._id}`}>
               {/* <img
                 src={topic.img}
                 alt={topic.title}
                 className={classes.topicImage}
               /> */}
-              {topic.title}
+              <h2>{topic.title}</h2>
             </Link>
           </li>
         ))}

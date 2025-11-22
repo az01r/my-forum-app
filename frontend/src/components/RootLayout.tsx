@@ -26,9 +26,7 @@ function RootLayout() {
   
   return (
     <>
-      <header>
-        <Navbar />
-      </header>
+      <Navbar />
       <main>
         <Outlet />
       </main>
