@@ -1,6 +1,5 @@
 import { config } from "dotenv";
 config();
-import bodyParser from "body-parser";
 import express from "express";
 import authRouter from "./routes/auth-router.ts";
 import topicRouter from "./routes/topic-router.ts";
@@ -13,12 +12,12 @@ const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); // allow all domains
   res.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
 

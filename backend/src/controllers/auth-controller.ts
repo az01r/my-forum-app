@@ -64,14 +64,6 @@ export const login = async (
   }
 };
 
-declare global {
-  namespace Express {
-    interface Request {
-      userId?: string;
-    }
-  }
-}
-
 interface UserPayload extends JwtPayload {
   userId: string;
 }
