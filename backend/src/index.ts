@@ -10,18 +10,7 @@ import mongoose from "mongoose";
 import helmet from "helmet";
 import corsManager from "./util/corsManager.js";
 
-if (
-  !process.env.PORT ||
-  !process.env.JWT_SECRET ||
-  !process.env.MONGO_USER ||
-  !process.env.MONGO_PASSWORD ||
-  !process.env.MONGO_DATABASE
-) {
-  console.error("FATAL ERROR: Missing required environment variables.");
-  process.exit(1);
-}
-
-const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.zdmjr.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority&appName=Cluster0`;
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority&appName=${process.env.MONGO_CLUSTER}`;
 
 await mongoose.connect(MONGODB_URI);
 console.log("\x1b[32mConnected to MongoDB\x1b[0m");
