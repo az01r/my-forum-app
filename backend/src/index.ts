@@ -10,7 +10,7 @@ import mongoose from "mongoose";
 import helmet from "helmet";
 import corsManager from "./util/corsManager.js";
 
-const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority&appName=${process.env.MONGO_CLUSTER}`;
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DATABASE}?${process.env.MONGO_OPTIONS}&appName=${process.env.MONGO_CLUSTER}`;
 
 await mongoose.connect(MONGODB_URI);
 console.log("\x1b[32mConnected to MongoDB\x1b[0m");
