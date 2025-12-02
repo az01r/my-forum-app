@@ -27,10 +27,11 @@ export async function action({ request }: ActionFunctionArgs) {
   const authData: AuthType = { email, password, nickname };
   const response = await authFunction(authData, mode);
 
-  if (response.status === 422 || response.status === 401) {
+  if (response.status === 401) {
     // When backend validation fails, it returns a response with an error message
     // This message is managed in the same way of a frontend validation exception
-    return response;
+    const resData = await response.json();
+    return resData;
   }
 
   if (!response.ok) {

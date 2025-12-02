@@ -3,5 +3,5 @@ import { removeAuthToken } from "../util/auth";
 
 export function action() {
     removeAuthToken();
-    return redirect('/topics');
+    return redirect('/');
 }

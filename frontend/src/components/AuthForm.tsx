@@ -22,9 +22,10 @@ export default function AuthForm() {
         <h1>{isLogin ? "Log in" : "Sign up"}</h1>
         {actionData && actionData.message && (
           <ul>
-            {actionData.message.map((err) => (
+            {Array.isArray(actionData.message) && actionData.message.map((err) => (
               <li key={err}>{err}</li>
             ))}
+            {typeof actionData.message === "string" && <li>{actionData.message}</li>}
           </ul>
         )}
         <p>
